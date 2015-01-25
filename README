@@ -4,7 +4,7 @@ INSTALLATION
 1. Unpack the context_http_header folder and contents in the appropriate modules directory 
    of your Drupal installation.  Normally sites/all/modules/
    
-2. Enable the context_http_header module on the Modules admin page (admin/build/modules)
+2. Enable the context_http_headers module on the Modules admin page (admin/build/modules)
 
 ======================================================
 USAGE

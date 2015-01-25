@@ -1,13 +1,13 @@
 <?php
 /**
- * @file content_set_header.module
+ * @file content_set_headers.module
  *    Adds HTTP Header reaction to Context
  */
 
 /**
- * Implemantation of hook_context_http_header_def 
+ * Implemantation of hook_context_http_headers_def 
  */
-function context_http_header_context_http_header_def() {
+function context_http_headers_context_http_header_def() {
   return array(
     'extra_headers' => array(
       '#title'       => t('Extra HTTP Headers'),
@@ -19,14 +19,14 @@ function context_http_header_context_http_header_def() {
 }
 
 /**
- * Implementation of hook_context_http_header_build
+ * Implementation of hook_context_http_headers_build
  * should return array in the format of:  
  * array( 
  *    'header-1' => array('value1', 'value2', etc),
  *    'header-2' => array(...),
  * )
  */
-function context_http_header_context_http_header_build($http_header_items) {
+function context_http_headers_context_http_header_build($http_header_items) {
   
   $keyed_headers = array();
   
@@ -44,7 +44,7 @@ function context_http_header_context_http_header_build($http_header_items) {
 }
 
 /**
- * _context_http_header_header_map
+ * _context_http_headers_header_map
  * Helper function to operate on the set of headers for each hook, 
  * concatenating several values into one string so they can be set all at once.
  *
@@ -60,7 +60,7 @@ function context_http_header_context_http_header_build($http_header_items) {
  *     'EXAMPLE' => 'another,header,for,this-hook'
  *   )
  */
-function _context_http_header_header_map($header_builds) {
+function _context_http_headers_header_map($header_builds) {
   $headers = array();
   
   foreach ($header_builds as $key => $value) {
@@ -83,7 +83,7 @@ function _context_http_header_header_map($header_builds) {
  * Make module compatible with context 3
  * implement hook_ctools_plugin_api().
  */
-function context_http_header_ctools_plugin_api($module, $api) {
+function context_http_headers_ctools_plugin_api($module, $api) {
   if ($module == 'context' && $api == 'plugins') {
     return array('version' => 3);
   }
@@ -93,11 +93,11 @@ function context_http_header_ctools_plugin_api($module, $api) {
  * Make module compatible with context 3
  * Implement hook_context_plugins().
  */
-function context_http_header_context_plugins() {
+function context_http_headers_context_plugins() {
   $plugins = array();
   $plugins['context_reaction_http_header'] = array(
     'handler' => array(
-      'path' => drupal_get_path('module', 'context_http_header'),
+      'path' => drupal_get_path('module', 'context_http_headers'),
       'file' =>  'context_reaction_http_header.inc',
       'class' => 'context_reaction_http_header',
       'parent' => 'context_reaction',
@@ -111,7 +111,7 @@ function context_http_header_context_plugins() {
  * Make module compatible with context 3
  * Implement hook_context_registry().
  */
-function context_http_header_context_registry() {
+function context_http_headers_context_registry() {
   $registry['reactions'] = array(
       'http_header' => array(
         'title' => t('HTTP Headers'),
@@ -125,7 +125,7 @@ function context_http_header_context_registry() {
  * Implementation of hook_context_page_reaction()
  * adds HTTP headers based on the active context
  */
-function context_http_header_context_page_reaction() {
+function context_http_headers_context_page_reaction() {
   
   if (function_exists("context_context_reactions")) {
     _do_context2_reaction();
